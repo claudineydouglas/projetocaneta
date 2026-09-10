@@ -1,0 +1,55 @@
+---
+type ButtonVariant = 'primary' | 'explore' | 'glow';
+
+interface Props {
+	variant?: ButtonVariant;
+	label: string;
+	href?: string;
+	title?: string;
+	icon?: string;
+	className?: string;
+	iconClass?: string;
+	innerClass?: string;
+}
+
+const {
+	variant = 'primary',
+	label,
+	href,
+	title,
+	icon,
+	className = '',
+	iconClass = '',
+	innerClass = '',
+} = Astro.props;
+
+const isDisabled = !href;
+const baseClass = variant === 'primary'
+	? 'btn-comprar'
+	: variant === 'explore'
+		? 'btn-explorar group'
+		: 'btn-glow-secondary';
+const innerBaseClass = variant === 'primary' ? `btn-comprar-inner ${innerClass}` : '';
+const resolvedIconClass = iconClass || (variant === 'explore' ? 'btn-arrow-icon' : 'text-base');
+---
+
+<a
+	href={href}
+	role="link"
+	aria-disabled={isDisabled ? 'true' : undefined}
+	title={title}
+	class={`${baseClass} ${className}`.trim()}
+>
+	{variant === 'primary' ? (
+		<div class={innerBaseClass}>
+			<span>{label}</span>
+			{icon && <iconify-icon icon={icon} class={resolvedIconClass}></iconify-icon>}
+		</div>
+	) : (
+		<>
+			{icon && variant === 'glow' && <iconify-icon icon={icon} class={resolvedIconClass}></iconify-icon>}
+			<span>{label}</span>
+			{icon && variant === 'explore' && <iconify-icon icon={icon} class={resolvedIconClass}></iconify-icon>}
+		</>
+	)}
+</a>

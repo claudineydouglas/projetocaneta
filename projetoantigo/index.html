@@ -1,10 +1,26 @@
-    ---
-    import Button from '../components/Button.astro';
-    import Layout from '../layouts/Layout.astro';
-    import TechCard from '../components/TechCard.astro';
-    ---
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
 
-    <Layout>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTOOLS.PRO | A Caneta Mais Tecnológica do Mundo.</title>
+    <meta name="description"
+        content="A caneta mais tecnológica do mundo. A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores que exigem perfeição em cada traço.">
+
+    <!-- Fonts: Space Grotesk, Inter, JetBrains Mono, Cormorant Garamond, Cinzel (Design System v3.0 & Editorial) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="./public/assets/generated/main.css">
+</head>
+
+<body class="selection:bg-stone-900 selection:text-white">
+
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <!-- Top Reading Progress Indicator -->
     <div id="scroll-progress-bar" aria-hidden="true"></div>
@@ -13,6 +29,42 @@
 
     <!-- Global Noise Grain Texture Layer -->
     <div class="noise-layer" aria-hidden="true"></div>
+
+    <!-- ==========================================================================
+         HEADER / NAVBAR (EXACTLY AS IN REFERENCE IMAGE)
+         ========================================================================== -->
+    <header id="navbar" class="fixed top-0 w-full z-50 px-8 sm:px-12 md:px-16 py-7 transition-all duration-300">
+        <div class="max-w-[1440px] mx-auto flex justify-between items-center">
+
+            <!-- Left: Logo (Rounded dark square icon + ARTOOLS.PRO) -->
+            <a href="#" class="flex items-center gap-3 group" aria-label="ARTOOLS Home">
+                <div
+                    class="w-8 h-8 bg-[#1C1917] text-white flex items-center justify-center rounded-[7px] shadow-sm group-hover:scale-105 transition-transform">
+                    <iconify-icon icon="solar:pen-bold" class="text-base text-white"></iconify-icon>
+                </div>
+                <span class="font-display font-bold text-lg tracking-tight text-[#1C1917]">ARTOOLS<span
+                        class="text-stone-400 font-normal">.PRO</span></span>
+            </a>
+
+            <!-- Center: Navigation Links (DESIGN, TECHNOLOGY, SPECS) -->
+            <nav class="hidden md:flex items-center gap-12 text-xs font-mono tracking-[0.2em] text-stone-500 uppercase">
+                <a href="#craft-section" class="hover:text-stone-900 transition-colors">DESIGN</a>
+                <a href="#tech-section" class="hover:text-stone-900 transition-colors">TECHNOLOGY</a>
+                <a href="#specs" class="hover:text-stone-900 transition-colors">SPECS</a>
+            </nav>
+
+            <!-- Right: Shopping Bag Icon + Divider -->
+            <div class="flex items-center gap-5">
+                <button class="hover:opacity-75 transition-opacity flex items-center justify-center"
+                    disabled aria-label="Sacola de compras indisponível" title="Compras em breve">
+                    <iconify-icon icon="solar:bag-linear" class="text-2xl text-stone-900"></iconify-icon>
+                </button>
+                <div class="w-px h-5 bg-stone-300"></div>
+            </div>
+
+        </div>
+        <nav aria-label="Navegação móvel" class="mt-4 flex justify-center gap-6 text-xs font-mono text-stone-600 md:hidden"><a href="#craft-section">DESIGN</a><a href="#tech-section">TECHNOLOGY</a><a href="#specs">SPECS</a></nav>
+    </header>
 
     <!-- ==========================================================================
          HERO SCROLL CONTAINER
@@ -27,7 +79,7 @@
                      1. FULLSCREEN BACKGROUND VIDEO (WALL-TO-WALL, CENTERED)
                      ============================================================== -->
                 <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                    <video id="hero-video" poster="/assets/images/artools_artisan_pen.jpg" src="/assets/videos/video2.mp4" muted playsinline preload="auto"
+                    <video id="hero-video" poster="./public/assets/images/artools_artisan_pen.jpg" src="./public/assets/videos/video2.mp4" muted playsinline preload="auto"
                         class="w-full h-full object-cover object-center will-change-transform"
                         aria-label="Vídeo de fundo da caneta ARTOOLS controlado pelo scroll">
                     </video>
@@ -67,10 +119,17 @@
                         <!-- Buttons: Comprar Agora (Black Pill) + Explorar ↓ (White Pill) -->
                         <div class="flex items-center gap-4 flex-wrap">
                             <!-- Primary Black Pill Button -->
-                            <Button label="Comprar Agora" title="Compras em breve" />
+                            <a role="link" aria-disabled="true" title="Compras em breve" class="btn-comprar">
+                                <div class="btn-comprar-inner">
+                                    <span>Comprar Agora</span>
+                                </div>
+                            </a>
 
                             <!-- Secondary White Floating Pill Button -->
-                            <Button variant="explore" label="Explorar" href="#craft-section" icon="solar:arrow-down-linear" />
+                            <a href="#craft-section" class="btn-explorar group">
+                                <span>Explorar</span>
+                                <iconify-icon icon="solar:arrow-down-linear" class="btn-arrow-icon"></iconify-icon>
+                            </a>
                         </div>
 
                     </div>
@@ -93,7 +152,10 @@
                         </p>
 
                         <div class="flex items-center gap-4">
-                            <Button variant="explore" label="Ver Especificações" href="#specs" icon="solar:arrow-right-linear" iconClass="text-base" />
+                            <a href="#specs" class="btn-explorar">
+                                <span>Ver Especificações</span>
+                                <iconify-icon icon="solar:arrow-right-linear" class="text-base"></iconify-icon>
+                            </a>
                         </div>
 
                     </div>
@@ -116,7 +178,12 @@
                         </p>
 
                         <div class="flex items-center gap-4">
-                            <Button label="Garantir Unidade" title="Compras em breve" icon="solar:arrow-right-linear" />
+                            <a role="link" aria-disabled="true" title="Compras em breve" class="btn-comprar">
+                                <div class="btn-comprar-inner">
+                                    <span>Garantir Unidade</span>
+                                    <iconify-icon icon="solar:arrow-right-linear" class="ml-2 text-base"></iconify-icon>
+                                </div>
+                            </a>
                         </div>
 
                     </div>
@@ -179,7 +246,7 @@
                             
                             <!-- Imagem Principal da Caneta ARTOOLS Pigmentum (Cobre 100% da altura com object-cover) -->
                             <img loading="lazy" decoding="async" id="craft-photo" 
-                                 src="/assets/images/artools_artisan_pen.jpg" 
+                                 src="./public/assets/images/artools_artisan_pen.jpg" 
                                  alt="Caneta ARTOOLS Pigmentum sob foco de luz em mesa de projetos técnicos" 
                                  class="w-full h-full object-cover object-center transition-transform duration-700 ease-out select-none will-change-transform"
                                  loading="lazy">
@@ -267,9 +334,16 @@
 
                     <!-- Botões de Ação Lado a Lado (Disposição Elegante em Linha) -->
                     <div class="craft-anim flex items-center gap-4 sm:gap-5 pt-3 flex-nowrap">
-                        <Button label="Comprar Agora" title="Compras em breve" className="shrink-0 whitespace-nowrap" />
+                        <a role="link" aria-disabled="true" title="Compras em breve" class="btn-comprar shrink-0 whitespace-nowrap">
+                            <div class="btn-comprar-inner">
+                                <span>Comprar Agora</span>
+                            </div>
+                        </a>
 
-                        <Button variant="explore" label="Ver Especificações" href="#specs" icon="solar:arrow-right-linear" iconClass="btn-arrow-icon text-base group-hover:translate-x-1 transition-transform" className="shrink-0 whitespace-nowrap" />
+                        <a href="#specs" class="btn-explorar group shrink-0 whitespace-nowrap">
+                            <span>Ver Especificações</span>
+                            <iconify-icon icon="solar:arrow-right-linear" class="btn-arrow-icon text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                        </a>
                     </div>
 
                 </div>
@@ -321,62 +395,12 @@
             <!-- ==============================================================
                  BENTO GRID TÉCNICO (OS 4 PILARES DA ENGENHARIA ARTOOLS)
                  ============================================================== -->
-            <div class="tech-carousel mb-12 sm:mb-16" data-tech-carousel>
-                <div class="tech-carousel-track">
-
-                    <TechCard
-                        active
-                        eyebrow="CHASSI & ERGONOMIA DINÂMICA"
-                        badge="CNC 5-EIXOS"
-                        title="Empunhadura Texturizada em Padrão Diamante"
-                        description="Usinada em torno de altíssima precisão a partir de um tarugo maciço de alumínio aeroespacial. O padrão recartilhado microdiamantado proporciona ancoragem tátil perfeita sem fadiga muscular, posicionando o centro de gravidade dinâmico no ponto de equilíbrio áureo (62/38)."
-                        image="/assets/images/artools_tech_feature.png"
-                        imageAlt="Macro fotografia do grip recartilhado e gravação a laser da caneta ARTOOLS Pigmentum"
-                        imageBadges={["LIGA AEROESPACIAL 6061-T6", "MASSA EQUILIBRADA: 19.4G"]}
-                    />
-
-                    <TechCard
-                        eyebrow="FLUIDODINÂMICA"
-                        status
-                        icon="solar:compass-bold"
-                        title="Equalização Hidrostática Ativa"
-                        description="Um labirinto capilar interno compensa instantaneamente flutuações de temperatura e pressão ambiente (inclusive em cabines de avião pressurizadas), anulando qualquer risco de vazamento e mantendo a vazão calibrada em qualquer inclinação."
-                        metrics={[
-                            { value: '0.00%', label: 'Vazamento em Altitude' },
-                            { value: '360°', label: 'Operação Angular' },
-                        ]}
-                    />
-
-                    <TechCard
-                        eyebrow="RESISTÊNCIA MECÂNICA"
-                        badge="CALIBRE 0.1MM"
-                        icon="solar:shield-check-bold"
-                        title="Ponta em Liga de Tungstênio"
-                        description="Microesfera de carbeto de tungstênio indeformável. Suporta mais de 400g de pressão mecânica vertical sem alargar, bifurcar ou perder a espessura nominal de 0.100mm, garantindo estabilidade linear por quilômetros de traçado."
-                        metrics={[
-                            { value: '400 g', label: 'Tolerância à Pressão' },
-                            { value: '±0.002mm', label: 'Desvio Máximo' },
-                        ]}
-                    />
-
-                    <TechCard
-                        eyebrow="QUÍMICA MOLECULAR ARCHIVAL"
-                        badge="100% INDELÉVEL"
-                        title="Tinta Japonesa com Nanocarbono Puro"
-                        description="Partículas de carbono coloidal refinadas em escala nanométrica que realizam microancoragem imediata na fibra do papel. Secagem ultrarrápida, zero sangramento nas margens e resistência comprovada contra umidade, solventes e raios UV."
-                        metrics={[
-                            { value: '2.8 seg', label: 'Secagem Rápida', detail: 'Zero Borrões' },
-                            { value: '3.2 D', label: 'Densidade Óptica', detail: 'Preto Profundo' },
-                            { value: '100+ Anos', label: 'Grau Archival', detail: 'ISO 14145-2' },
-                        ]}
-                    />
-
-                    <template>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-16">
 
                 <!-- ----------------------------------------------------------
                      CARD 1 (HERO CARD - 7 COLUNAS): GRIP DIAMANTADO & CHASSI
                      ---------------------------------------------------------- -->
-                <div class="tech-card tech-slide is-active bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300 relative overflow-hidden" data-tech-slide aria-hidden="false">
+                <div class="tech-card lg:col-span-7 bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300 relative overflow-hidden">
                     
                     <div class="mb-8">
                         <div class="flex items-center justify-between gap-4 mb-4">
@@ -397,7 +421,7 @@
 
                     <!-- Visual Showcase: Macro Fotografia do Chassi e Ponta -->
                     <div class="relative rounded-[4px] overflow-hidden border border-stone-200 bg-stone-950 p-2 group-hover:border-stone-400 transition-colors">
-                        <img loading="lazy" decoding="async" src="/assets/images/artools_tech_feature.png" 
+                        <img loading="lazy" decoding="async" src="./public/assets/images/artools_tech_feature.png" 
                              alt="Macro fotografia do grip recartilhado e gravação a laser da caneta ARTOOLS Pigmentum" 
                              class="w-full h-56 sm:h-64 object-cover object-center rounded-[3px] group-hover:scale-105 transition-transform duration-700 ease-out select-none"
                              loading="lazy">
@@ -416,7 +440,7 @@
                 <!-- ----------------------------------------------------------
                      CARD 2 (5 COLUNAS): CÂMARA BAROMÉTRICA DE MICROPRESSÃO
                      ---------------------------------------------------------- -->
-                <div class="tech-card tech-slide bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300" data-tech-slide aria-hidden="true">
+                <div class="tech-card lg:col-span-5 bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300">
                     
                     <div>
                         <div class="flex items-center justify-between gap-4 mb-4">
@@ -456,7 +480,7 @@
                 <!-- ----------------------------------------------------------
                      CARD 3 (5 COLUNAS): PONTA EM CARBETO DE TUNGSTÊNIO (0.1MM)
                      ---------------------------------------------------------- -->
-                <div class="tech-card tech-slide bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300" data-tech-slide aria-hidden="true">
+                <div class="tech-card lg:col-span-5 bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300">
                     
                     <div>
                         <div class="flex items-center justify-between gap-4 mb-4">
@@ -498,7 +522,7 @@
                 <!-- ----------------------------------------------------------
                      CARD 4 (7 COLUNAS): NANOPIGMENTOS JAPANESE CARBON BLACK
                      ---------------------------------------------------------- -->
-                <div class="tech-card tech-slide bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300" data-tech-slide aria-hidden="true">
+                <div class="tech-card lg:col-span-7 bg-white rounded-[6px] border border-stone-300/90 p-8 sm:p-10 shadow-[0_15px_40px_-15px_rgba(28,25,23,0.08)] flex flex-col justify-between group hover:border-stone-900 transition-colors duration-300">
                     
                     <div class="mb-6">
                         <div class="flex items-center justify-between gap-4 mb-4">
@@ -540,23 +564,7 @@
                     </div>
 
                 </div>
-                    </template>
-                </div>
 
-                <div class="tech-carousel-controls" aria-label="Navegação dos sistemas técnicos">
-                    <button class="tech-carousel-arrow" type="button" data-tech-prev aria-label="Sistema anterior">
-                        <iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>
-                    </button>
-                    <div class="tech-carousel-dots" role="tablist" aria-label="Selecionar sistema técnico">
-                        <button class="tech-carousel-dot is-active" type="button" role="tab" aria-label="Ver sistema 1" aria-selected="true" data-tech-dot="0"></button>
-                        <button class="tech-carousel-dot" type="button" role="tab" aria-label="Ver sistema 2" aria-selected="false" data-tech-dot="1"></button>
-                        <button class="tech-carousel-dot" type="button" role="tab" aria-label="Ver sistema 3" aria-selected="false" data-tech-dot="2"></button>
-                        <button class="tech-carousel-dot" type="button" role="tab" aria-label="Ver sistema 4" aria-selected="false" data-tech-dot="3"></button>
-                    </div>
-                    <button class="tech-carousel-arrow" type="button" data-tech-next aria-label="Próximo sistema">
-                        <iconify-icon icon="solar:arrow-right-linear" aria-hidden="true"></iconify-icon>
-                    </button>
-                </div>
             </div>
 
             <!-- ==============================================================
@@ -585,7 +593,12 @@
 
                 <!-- Ações da Faixa -->
                 <div class="flex items-center gap-4 shrink-0 w-full md:w-auto justify-start md:justify-end">
-                    <Button label="Adquirir Instrumento" title="Compras em breve" icon="solar:arrow-right-linear" innerClass="bg-white text-stone-900 hover:bg-stone-100" className="w-full sm:w-auto text-center" />
+                    <a role="link" aria-disabled="true" title="Compras em breve" class="btn-comprar w-full sm:w-auto text-center">
+                        <div class="btn-comprar-inner bg-white text-stone-900 hover:bg-stone-100">
+                            <span>Adquirir Instrumento</span>
+                            <iconify-icon icon="solar:arrow-right-linear" class="ml-2 text-base"></iconify-icon>
+                        </div>
+                    </a>
                 </div>
 
             </div>
@@ -595,113 +608,7 @@
     </section>
 
     <!-- ==========================================================================
-         QUARTA DOBRA: MANIFESTO DE TINTA
-         Marquee infinito com palavras-chave da ARTOOLS Pigmentum.
-         ========================================================================== -->
-    <section id="ink-marquee" class="ink-marquee-section" aria-label="Manifesto ARTOOLS Pigmentum">
-        <div class="ink-marquee-grid" aria-hidden="true"></div>
-        <div class="ink-marquee-glow" aria-hidden="true"></div>
-
-        <div class="ink-marquee-header">
-            <span class="ink-marquee-kicker">04 // O GESTO CONTÍNUO</span>
-            <span class="ink-marquee-status"><i></i> FLUXO ATIVO</span>
-        </div>
-
-        <div class="ink-marquee-stage">
-            <div class="ink-marquee-line ink-marquee-line-forward">
-                <div class="ink-marquee-track">
-                    <span>precisão</span><b>✦</b><span>nanocarbono</span><b>✦</b><span>controle</span><b>✦</b><span>traço contínuo</span><b>✦</b><span>equilíbrio</span><b>✦</b><span>fluxo perfeito</span><b>✦</b><span>carbono japonês</span><b>✦</b><span>feito para durar</span><b>✦</b><span>0.1 mm</span><b>✦</b><span>4.500 m de autonomia</span><b>✦</b><span>19.4 g de equilíbrio</span><b>✦</b><span>ISO 14145</span><b>✦</b>
-                </div>
-            </div>
-        </div>
-
-        <div class="ink-marquee-footer">
-            <span>ARTOOLS / PIGMENTUM</span>
-            <span class="ink-marquee-caption">A matéria encontra o gesto.</span>
-            <span>EST. 2026</span>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         QUINTA DOBRA: MATÉRIA EM MOVIMENTO
-         Vídeo original da ARTOOLS, sem overlays ou camadas sobre a imagem.
-         ========================================================================== -->
-    <section id="material-video" class="material-video-section" aria-label="A caneta ARTOOLS em movimento">
-        <video
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="metadata"
-            poster="/assets/images/artools_artisan_pen.jpg"
-            class="material-video"
-            aria-label="Vídeo da caneta ARTOOLS Pigmentum em movimento"
-        >
-            <source src="/assets/videos/video.mp4" type="video/mp4" />
-        </video>
-        <div class="material-video-caption">
-            <span>ARTOOLS / PIGMENTUM</span>
-            <span>FORMA EM MOVIMENTO</span>
-            <span>01 — 2026</span>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         SEXTA DOBRA: ESPECIFICAÇÕES TÉCNICAS
-         ========================================================================== -->
-    <section id="technical-specs" class="technical-specs-section" aria-labelledby="technical-specs-title">
-        <div class="technical-specs-grid" aria-hidden="true"></div>
-        <div class="technical-specs-inner">
-            <div class="technical-specs-heading">
-                <div>
-                    <span class="technical-specs-kicker">05 // FICHA DE ENGENHARIA</span>
-                    <h2 id="technical-specs-title">Especificações <em>técnicas.</em></h2>
-                </div>
-                <p>Uma arquitetura de precisão construída para desaparecer entre a mão e o gesto.</p>
-            </div>
-
-            <div class="technical-specs-table" role="table" aria-label="Especificações técnicas da caneta ARTOOLS Pigmentum">
-                <div class="technical-specs-row technical-specs-row-head" role="row">
-                    <span role="columnheader">Parâmetro</span>
-                    <span role="columnheader">Pigmentum 0.1</span>
-                    <span role="columnheader">Nota de engenharia</span>
-                </div>
-                <div class="technical-specs-row" role="row">
-                    <span role="cell">Calibre nominal</span>
-                    <strong role="cell">0.10 mm</strong>
-                    <span role="cell">Ponta usinada em 5 eixos</span>
-                </div>
-                <div class="technical-specs-row" role="row">
-                    <span role="cell">Autonomia de traço</span>
-                    <strong role="cell">4.500 m</strong>
-                    <span role="cell">Câmara de nanopigmento de alta densidade</span>
-                </div>
-                <div class="technical-specs-row" role="row">
-                    <span role="cell">Massa equilibrada</span>
-                    <strong role="cell">19.4 g</strong>
-                    <span role="cell">Centro de gravidade áureo 62 / 38</span>
-                </div>
-                <div class="technical-specs-row" role="row">
-                    <span role="cell">Tolerância à pressão</span>
-                    <strong role="cell">400 g</strong>
-                    <span role="cell">Liga de tungstênio indeformável</span>
-                </div>
-                <div class="technical-specs-row" role="row">
-                    <span role="cell">Resistência ambiental</span>
-                    <strong role="cell">ISO 14145-2</strong>
-                    <span role="cell">Resistente a água, solventes e raios UV</span>
-                </div>
-            </div>
-
-            <div class="technical-specs-footnote">
-                <span><i></i> CALIBRAÇÃO INDIVIDUAL VERIFICADA</span>
-                <span>ARTOOLS / PIGMENTUM / 2026</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         SÉTIMA DOBRA: VÍDEO NO FUNDO & GLOW BOX DE DESTAQUE (LOTE FUNDADOR)
+         QUARTA DOBRA: VÍDEO NO FUNDO & GLOW BOX DE DESTAQUE (LOTE FUNDADOR)
          Vídeo da caneta no fundo + Efeito Glow do template animations-gemini
          (Aura difusa + Conic Beam giratório + Lanterna Flashlight no mouse)
          ========================================================================== -->
@@ -709,8 +616,8 @@
 
         <!-- Background Pen Video Container with Cinematic Gradient Overlays -->
         <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-            <video id="experience-video" autoplay loop muted playsinline class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster="/assets/images/artools_artisan_pen.jpg">
-                <source src="/assets/videos/video.mp4" type="video/mp4">
+            <video id="experience-video" autoplay loop muted playsinline class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster="./public/assets/images/artools_artisan_pen.jpg">
+                <source src="./public/assets/videos/video.mp4" type="video/mp4">
             </video>
 
             <!-- Atmospheric Dark Vignette for Visual Contrast -->
@@ -823,10 +730,18 @@
                     <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                         <div class="flex items-center gap-3 sm:gap-4 flex-nowrap shrink-0">
                             <!-- Botão Primário: Solid Pill com feixe de luz e animação ao hover -->
-                            <Button label="Garantir Unidade Numerada" title="Compras em breve" icon="solar:arrow-right-linear" innerClass="bg-white text-stone-950 font-semibold hover:bg-stone-100 whitespace-nowrap" className="shrink-0 whitespace-nowrap" />
+                            <a role="link" aria-disabled="true" title="Compras em breve" class="btn-comprar shrink-0 whitespace-nowrap">
+                                <div class="btn-comprar-inner bg-white text-stone-950 font-semibold hover:bg-stone-100 whitespace-nowrap">
+                                    <span>Garantir Unidade Numerada</span>
+                                    <iconify-icon icon="solar:arrow-right-linear" class="ml-2 text-base"></iconify-icon>
+                                </div>
+                            </a>
 
                             <!-- Botão Secundário: Glass Pill elegante lado a lado -->
-                            <Button variant="glow" label="Ver Laudo Técnico" title="Laudo técnico ainda não disponível" icon="solar:document-text-linear" iconClass="mr-2 text-base text-stone-400" className="shrink-0 whitespace-nowrap" />
+                            <a role="link" aria-disabled="true" title="Laudo técnico ainda não disponível" class="btn-glow-secondary shrink-0 whitespace-nowrap">
+                                <iconify-icon icon="solar:document-text-linear" class="mr-2 text-base text-stone-400"></iconify-icon>
+                                <span>Ver Laudo Técnico</span>
+                            </a>
                         </div>
 
                         <!-- Garantia e Segurança -->
@@ -844,715 +759,12 @@
 
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll<HTMLElement>('[data-tech-carousel]').forEach((carousel) => {
-                const slides = [...carousel.querySelectorAll<HTMLElement>('[data-tech-slide]')];
-                const dots = [...carousel.querySelectorAll<HTMLButtonElement>('[data-tech-dot]')];
-                const previous = carousel.querySelector('[data-tech-prev]');
-                const next = carousel.querySelector('[data-tech-next]');
-                let activeIndex = 0;
-                let autoplay: number | undefined;
-                let transitionTimer: number | undefined;
-
-                const showSlide = (nextIndex: number, direction?: number) => {
-                    const previousIndex = activeIndex;
-                    const movement = direction ?? (nextIndex > previousIndex || (previousIndex === slides.length - 1 && nextIndex === 0) ? 1 : -1);
-                    activeIndex = (nextIndex + slides.length) % slides.length;
-                    window.clearTimeout(transitionTimer);
-                    carousel.dataset.direction = movement > 0 ? 'forward' : 'backward';
-                    slides.forEach((slide, index) => {
-                        const isActive = index === activeIndex;
-                        const wasActive = index === previousIndex;
-                        slide.classList.toggle('is-active', isActive);
-                        slide.classList.remove('is-enter-left', 'is-enter-right', 'is-exit-left', 'is-exit-right');
-                        if (isActive && !wasActive) slide.classList.add(movement > 0 ? 'is-enter-right' : 'is-enter-left');
-                        if (wasActive && !isActive) slide.classList.add(movement > 0 ? 'is-exit-left' : 'is-exit-right');
-                        slide.setAttribute('aria-hidden', String(!isActive));
-                    });
-                    dots.forEach((dot, index) => {
-                        const isActive = index === activeIndex;
-                        dot.classList.toggle('is-active', isActive);
-                        dot.setAttribute('aria-selected', String(isActive));
-                    });
-                    transitionTimer = window.setTimeout(() => {
-                        slides.forEach((slide) => slide.classList.remove('is-enter-left', 'is-enter-right', 'is-exit-left', 'is-exit-right'));
-                    }, 800);
-                };
-
-                const stopAutoplay = () => window.clearInterval(autoplay);
-                const startAutoplay = () => {
-                    stopAutoplay();
-                    autoplay = window.setInterval(() => showSlide(activeIndex + 1), 6500);
-                };
-
-                previous?.addEventListener('click', () => {
-                    showSlide(activeIndex - 1, -1);
-                    startAutoplay();
-                });
-                next?.addEventListener('click', () => {
-                    showSlide(activeIndex + 1, 1);
-                    startAutoplay();
-                });
-                dots.forEach((dot) => dot.addEventListener('click', () => {
-                    const targetIndex = Number(dot.dataset.techDot);
-                    showSlide(targetIndex, targetIndex >= activeIndex ? 1 : -1);
-                    startAutoplay();
-                }));
-                carousel.addEventListener('pointermove', (event: PointerEvent) => {
-                    if (!window.matchMedia('(hover: hover)').matches) return;
-                    const bounds = carousel.getBoundingClientRect();
-                    carousel.style.setProperty('--pointer-x', `${((event.clientX - bounds.left) / bounds.width) * 100}%`);
-                    carousel.style.setProperty('--pointer-y', `${((event.clientY - bounds.top) / bounds.height) * 100}%`);
-                });
-                carousel.addEventListener('pointerleave', () => {
-                    carousel.style.setProperty('--pointer-x', '50%');
-                    carousel.style.setProperty('--pointer-y', '50%');
-                });
-                carousel.addEventListener('mouseenter', stopAutoplay);
-                carousel.addEventListener('mouseleave', startAutoplay);
-                carousel.addEventListener('focusin', stopAutoplay);
-                carousel.addEventListener('focusout', (event) => {
-                    const relatedTarget = (event as FocusEvent).relatedTarget;
-                    if (!(relatedTarget instanceof Node) || !carousel.contains(relatedTarget)) startAutoplay();
-                });
-
-                if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) startAutoplay();
-            });
-        });
-    </script>
-
     <!-- ==========================================================================
          GSAP SCROLLTRIGGER SCRIPTS: TIME-SCRUB & FADE/BLUR IN/OUT
          ========================================================================== -->
     </main>
-    <script defer src="/assets/generated/main.js"></script>
-</Layout>
-
-<style>
-    .material-video-section {
-        display: flex;
-        flex-direction: column;
-        height: 412px;
-        background: #000;
-        border-top: 1px solid #191919;
-        border-bottom: 1px solid #191919;
-    }
-
-    .material-video {
-        display: block;
-        width: 100%;
-        min-height: 0;
-        flex: 1 1 auto;
-        object-fit: cover;
-        object-position: center;
-        background: #000;
-    }
-
-    .material-video-caption {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex: 0 0 44px;
-        padding: 0 2rem;
-        color: rgba(245, 243, 238, 0.58);
-        background: #000;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-    }
-
-    @media (max-width: 640px) {
-        .material-video-section {
-            height: 412px;
-        }
-
-        .material-video-caption {
-            flex-basis: 40px;
-            padding: 0 1.25rem;
-            font-size: 0.48rem;
-            letter-spacing: 0.14em;
-        }
-    }
-
-    .technical-specs-section {
-        position: relative;
-        overflow: hidden;
-        min-height: 620px;
-        padding: 6rem 2rem 4rem;
-        isolation: isolate;
-        color: #f5f3ee;
-        background: #000;
-        border-bottom: 1px solid #1c1c1c;
-    }
-
-    .technical-specs-grid {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        opacity: 0.16;
-        pointer-events: none;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
-        background-size: 5rem 5rem;
-        mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
-    }
-
-    .technical-specs-inner {
-        width: min(1180px, 100%);
-        margin: 0 auto;
-    }
-
-    .technical-specs-heading {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 3rem;
-        padding-bottom: 3.5rem;
-    }
-
-    .technical-specs-kicker,
-    .technical-specs-footnote {
-        color: rgba(245, 243, 238, 0.45);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.625rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-    }
-
-    .technical-specs-heading h2 {
-        margin: 1rem 0 0;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: clamp(2.5rem, 5vw, 5rem);
-        font-weight: 500;
-        letter-spacing: -0.045em;
-        line-height: 0.95;
-    }
-
-    .technical-specs-heading h2 em {
-        color: #c79a5d;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.12em;
-        font-weight: 500;
-        letter-spacing: -0.02em;
-    }
-
-    .technical-specs-heading p {
-        max-width: 285px;
-        margin: 0 0 0.35rem;
-        color: rgba(245, 243, 238, 0.55);
-        font-size: 0.9rem;
-        font-weight: 300;
-        line-height: 1.6;
-    }
-
-    .technical-specs-table {
-        border-top: 1px solid rgba(245, 243, 238, 0.55);
-    }
-
-    .technical-specs-row {
-        display: grid;
-        grid-template-columns: 1.05fr 0.8fr 1.5fr;
-        align-items: center;
-        min-height: 4.65rem;
-        gap: 2rem;
-        border-bottom: 1px solid rgba(245, 243, 238, 0.14);
-        color: rgba(245, 243, 238, 0.6);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
-        letter-spacing: 0.02em;
-    }
-
-    .technical-specs-row:not(.technical-specs-row-head) {
-        transition: background-color 240ms ease, padding 240ms ease;
-    }
-
-    .technical-specs-row:not(.technical-specs-row-head):hover {
-        padding-right: 0.75rem;
-        padding-left: 0.75rem;
-        background: rgba(255, 255, 255, 0.045);
-    }
-
-    .technical-specs-row-head {
-        min-height: 2.75rem;
-        color: rgba(245, 243, 238, 0.35);
-        font-size: 0.6rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-    }
-
-    .technical-specs-row strong {
-        color: #f5f3ee;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.35rem;
-        font-weight: 500;
-        letter-spacing: -0.03em;
-    }
-
-    .technical-specs-footnote {
-        display: flex;
-        justify-content: space-between;
-        gap: 2rem;
-        padding-top: 1.5rem;
-    }
-
-    .technical-specs-footnote i {
-        display: inline-block;
-        width: 0.4rem;
-        height: 0.4rem;
-        margin-right: 0.5rem;
-        border-radius: 50%;
-        background: #c79a5d;
-        box-shadow: 0 0 12px rgba(199, 154, 93, 0.8);
-    }
-
-    @media (max-width: 640px) {
-        .technical-specs-section {
-            min-height: auto;
-            padding: 4rem 1.25rem 3rem;
-        }
-
-        .technical-specs-heading {
-            display: block;
-            padding-bottom: 2rem;
-        }
-
-        .technical-specs-heading p {
-            margin-top: 1.5rem;
-        }
-
-        .technical-specs-row {
-            grid-template-columns: 1fr auto;
-            min-height: 5rem;
-            gap: 0.5rem 1rem;
-        }
-
-        .technical-specs-row span:last-child {
-            grid-column: 1 / -1;
-            padding-bottom: 0.9rem;
-            color: rgba(245, 243, 238, 0.4);
-            font-size: 0.65rem;
-        }
-
-        .technical-specs-row-head {
-            display: none;
-        }
-
-        .technical-specs-row strong {
-            justify-self: end;
-            font-size: 1.15rem;
-        }
-
-        .technical-specs-footnote {
-            display: block;
-            line-height: 2;
-        }
-    }
-
-    .ink-marquee-section {
-        --ink-white: #f5f3ee;
-        --ink-muted: rgba(245, 243, 238, 0.42);
-        position: relative;
-        min-height: 235px;
-        padding: 0.65rem 0 0.8rem;
-        overflow: hidden;
-        isolation: isolate;
-        color: var(--ink-white);
-        background: #000;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .ink-marquee-grid {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-        opacity: 0.18;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-        background-size: 5rem 5rem;
-        mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
-    }
-
-    .ink-marquee-glow {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: min(70vw, 900px);
-        height: 240px;
-        z-index: -1;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(ellipse, rgba(177, 125, 57, 0.13), transparent 68%);
-        filter: blur(24px);
-    }
-
-    .ink-marquee-header,
-    .ink-marquee-footer {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.625rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-    }
-
-    .ink-marquee-header {
-        padding-bottom: 0.4rem;
-        color: var(--ink-muted);
-    }
-
-    .ink-marquee-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.55rem;
-    }
-
-    .ink-marquee-status i {
-        display: block;
-        width: 0.4rem;
-        height: 0.4rem;
-        border-radius: 50%;
-        background: #c79a5d;
-        box-shadow: 0 0 14px rgba(199, 154, 93, 0.9);
-        animation: inkPulse 2s ease-in-out infinite;
-    }
-
-    .ink-marquee-stage {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 145px;
-        padding: 0.6rem 0;
-        mask-image: linear-gradient(90deg, transparent, black 2%, black 98%, transparent);
-    }
-
-    .ink-marquee-line {
-        position: relative;
-        width: max-content;
-        white-space: nowrap;
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(3rem, 6.5vw, 6rem);
-        font-style: italic;
-        font-weight: 500;
-        line-height: 0.96;
-        letter-spacing: -0.025em;
-        animation: inkMarqueeForward 72s linear infinite;
-        will-change: transform;
-    }
-
-    .ink-marquee-track {
-        display: flex;
-        align-items: center;
-        gap: 0.6em;
-    }
-
-    .ink-marquee-track b {
-        color: #c79a5d;
-        font-family: 'Inter', sans-serif;
-        font-size: 0.22em;
-        font-weight: 400;
-        letter-spacing: 0;
-        -webkit-text-stroke: 0;
-    }
-
-    .ink-marquee-footer {
-        padding-top: 0.4rem;
-        color: var(--ink-muted);
-        border-top: 1px solid rgba(255, 255, 255, 0.13);
-    }
-
-    .ink-marquee-caption {
-        color: rgba(245, 243, 238, 0.72);
-        font-family: 'Cormorant Garamond', serif;
-        font-style: italic;
-        font-size: 1.35rem;
-        letter-spacing: 0;
-        text-transform: none;
-    }
-
-    @keyframes inkMarqueeForward {
-        from { transform: translateX(-12%); }
-        to { transform: translateX(-58%); }
-    }
-
-    @keyframes inkPulse {
-        0%, 100% { opacity: 0.5; transform: scale(0.8); }
-        50% { opacity: 1; transform: scale(1.25); }
-    }
-
-    .ink-marquee-section:hover .ink-marquee-line {
-        animation-play-state: paused;
-    }
-
-    @media (max-width: 640px) {
-        .ink-marquee-section {
-            min-height: 220px;
-        }
-
-        .ink-marquee-header,
-        .ink-marquee-footer {
-            padding-right: 1.25rem;
-            padding-left: 1.25rem;
-            font-size: 0.5rem;
-        }
-
-        .ink-marquee-caption {
-            font-size: 1.05rem;
-        }
-
-        .ink-marquee-stage {
-            min-height: 140px;
-            padding: 0.5rem 0;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .ink-marquee-line,
-        .ink-marquee-status i {
-            animation-play-state: paused;
-            animation: none;
-        }
-    }
-
-    .tech-carousel {
-        position: relative;
-        --pointer-x: 50%;
-        --pointer-y: 50%;
-        perspective: 1400px;
-    }
-
-    .tech-carousel-track {
-        display: grid;
-        overflow: hidden;
-        border-radius: 6px;
-        isolation: isolate;
-    }
-
-    .tech-slide {
-        grid-area: 1 / 1;
-        min-width: 0;
-        opacity: 0 !important;
-        pointer-events: none;
-        visibility: hidden;
-        transform: translate3d(0, 24px, 0) scale(0.96) rotateY(0deg);
-        filter: blur(12px);
-        transform-origin: center center;
-        will-change: transform, opacity, filter;
-        transition: none;
-    }
-
-    .tech-slide::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-        background: radial-gradient(420px circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.42), transparent 58%);
-        opacity: 0;
-        transition: opacity 500ms ease;
-    }
-
-    .tech-slide.is-active {
-        opacity: 1 !important;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translate3d(0, 0, 0) scale(1) rotateY(0deg) !important;
-        filter: blur(0) !important;
-        z-index: 1;
-    }
-
-    .tech-carousel:hover .tech-slide.is-active::after {
-        opacity: 1;
-    }
-
-    .tech-slide.is-active.is-enter-right {
-        animation: techParallaxInRight 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .tech-slide.is-active.is-enter-left {
-        animation: techParallaxInLeft 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .tech-slide.is-exit-left,
-    .tech-slide.is-exit-right {
-        visibility: visible;
-        z-index: 2;
-        animation-duration: 760ms;
-        animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
-        animation-fill-mode: both;
-    }
-
-    .tech-slide.is-exit-left {
-        animation-name: techParallaxOutLeft;
-    }
-
-    .tech-slide.is-exit-right {
-        animation-name: techParallaxOutRight;
-    }
-
-    @keyframes techParallaxInRight {
-        0% { opacity: 0; transform: translate3d(22%, 0, 0) scale(0.92) rotateY(8deg); filter: blur(14px); }
-        55% { opacity: 1; transform: translate3d(-2%, 0, 0) scale(1.01) rotateY(-1deg); filter: blur(1px); }
-        100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotateY(0); filter: blur(0); }
-    }
-
-    @keyframes techParallaxInLeft {
-        0% { opacity: 0; transform: translate3d(-22%, 0, 0) scale(0.92) rotateY(-8deg); filter: blur(14px); }
-        55% { opacity: 1; transform: translate3d(2%, 0, 0) scale(1.01) rotateY(1deg); filter: blur(1px); }
-        100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotateY(0); filter: blur(0); }
-    }
-
-    @keyframes techParallaxOutLeft {
-        0% { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotateY(0); filter: blur(0); }
-        100% { opacity: 0; transform: translate3d(-18%, 0, 0) scale(0.94) rotateY(-7deg); filter: blur(10px); }
-    }
-
-    @keyframes techParallaxOutRight {
-        0% { opacity: 1; transform: translate3d(0, 0, 0) scale(1) rotateY(0); filter: blur(0); }
-        100% { opacity: 0; transform: translate3d(18%, 0, 0) scale(0.94) rotateY(7deg); filter: blur(10px); }
-    }
-
-    .tech-carousel-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.25rem;
-        margin-top: 1.25rem;
-    }
-
-    .tech-carousel-arrow,
-    .tech-carousel-dot {
-        border: 1px solid rgba(28, 25, 23, 0.2);
-        background: rgba(255, 255, 255, 0.7);
-        color: #1c1917;
-        transition: background-color 200ms ease, color 200ms ease, transform 200ms ease, width 300ms ease;
-    }
-
-    .tech-carousel-arrow {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 999px;
-    }
-
-    .tech-carousel-arrow:hover,
-    .tech-carousel-arrow:focus-visible {
-        background: #1c1917;
-        color: #fff;
-        transform: translateY(-2px);
-    }
-
-    .tech-carousel-dots {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
-
-    .tech-carousel-dot {
-        width: 0.45rem;
-        height: 0.45rem;
-        padding: 0;
-        border-radius: 999px;
-    }
-
-    .tech-carousel-dot.is-active {
-        width: 1.75rem;
-        background: #1c1917;
-        border-color: #1c1917;
-    }
-
-    @media (max-width: 640px) {
-        .tech-carousel-controls {
-            justify-content: space-between;
-        }
-
-        .tech-carousel-dots {
-            gap: 0.3rem;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .tech-slide,
-        .tech-carousel-arrow,
-        .tech-carousel-dot {
-            transition: none;
-        }
-
-        .tech-slide.is-active.is-enter-right,
-        .tech-slide.is-active.is-enter-left,
-        .tech-slide.is-exit-left,
-        .tech-slide.is-exit-right {
-            animation: none;
-        }
-    }
-
-    /* TechCard vive em um componente Astro separado; estes estados precisam ser globais. */
-    :global(.tech-carousel-track) {
-        display: grid;
-        overflow: hidden;
-        align-items: stretch;
-    }
-
-    :global(.tech-slide) {
-        grid-area: 1 / 1;
-        min-width: 0;
-        visibility: hidden;
-        opacity: 0 !important;
-        pointer-events: none;
-        transform: translate3d(0, 24px, 0) scale(0.96) rotateY(0deg) !important;
-        filter: blur(12px) !important;
-        will-change: transform, opacity, filter;
-    }
-
-    :global(.tech-slide.is-active) {
-        visibility: visible;
-        opacity: 1 !important;
-        pointer-events: auto;
-        transform: translate3d(0, 0, 0) scale(1) rotateY(0deg) !important;
-        filter: blur(0) !important;
-        z-index: 1;
-    }
-
-    :global(.tech-slide.is-active.is-enter-right) {
-        animation: techParallaxInRight 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    :global(.tech-slide.is-active.is-enter-left) {
-        animation: techParallaxInLeft 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    :global(.tech-slide.is-exit-left),
-    :global(.tech-slide.is-exit-right) {
-        visibility: visible;
-        z-index: 2;
-        animation-duration: 760ms;
-        animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
-        animation-fill-mode: both;
-    }
-
-    :global(.tech-slide.is-exit-left) {
-        animation-name: techParallaxOutLeft;
-    }
-
-    :global(.tech-slide.is-exit-right) {
-        animation-name: techParallaxOutRight;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        :global(.tech-slide.is-active.is-enter-right),
-        :global(.tech-slide.is-active.is-enter-left),
-        :global(.tech-slide.is-exit-left),
-        :global(.tech-slide.is-exit-right) {
-            animation: none;
-        }
-    }
-</style>
+    <footer class="border-t border-stone-300 bg-canvas px-6 py-8 text-center text-sm text-stone-600"><p>ARTOOLS.PRO</p><p class="mt-2">Compras e laudo técnico ainda não disponíveis.</p></footer>
+    <script defer src="./public/assets/generated/main.js"></script>
+</body>
+
+</html>
