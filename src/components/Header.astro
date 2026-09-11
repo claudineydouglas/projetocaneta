@@ -1,29 +1,57 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: 'Início', href: '/', match: ['/'] },
+  { label: 'Catálogo', href: '/segunda-pagina', match: ['/segunda-pagina'] },
+  { label: 'Detalhes', href: '/detalhes', match: ['/detalhes'] }
+];
+---
+
 <header id="navbar" class="fixed top-0 w-full z-50 px-8 sm:px-12 md:px-16 py-7 transition-all duration-300">
-	<div class="max-w-[1440px] mx-auto flex justify-between items-center">
-		<a href="#" class="flex items-center gap-3 group" aria-label="ARTOOLS Home">
+	<div class="max-w-[1440px] mx-auto flex justify-between items-center gap-6">
+		<a href="/" class="flex items-center gap-3 group" aria-label="ARTOOLS Home">
 			<div class="w-8 h-8 bg-[#1C1917] text-white flex items-center justify-center rounded-[7px] shadow-sm group-hover:scale-105 transition-transform">
 				<iconify-icon icon="solar:pen-bold" class="text-base text-white"></iconify-icon>
 			</div>
-			<span class="font-display font-bold text-lg tracking-tight text-[#1C1917]">ARTOOLS<span class="text-stone-400 font-normal">.PRO</span></span>
+			<span class="font-display font-bold text-lg tracking-tight text-[#1C1917]">ARTOOLS</span>
 		</a>
 
-		<nav class="hidden md:flex items-center gap-12 text-xs font-mono tracking-[0.2em] text-stone-500 uppercase" aria-label="Navegação principal">
-			<a href="#craft-section" class="hover:text-stone-900 transition-colors">DESIGN</a>
-			<a href="#tech-section" class="hover:text-stone-900 transition-colors">TECHNOLOGY</a>
-			<a href="#specs" class="hover:text-stone-900 transition-colors">SPECS</a>
+		<nav class="hidden md:flex items-center gap-3 text-[10px] font-mono tracking-[0.2em] uppercase" aria-label="Navegação principal">
+			{navItems.map((item) => {
+				const isActive = item.match.includes(currentPath);
+				return (
+					<a
+						href={item.href}
+						class:list={[
+							'px-3 py-2 transition-colors relative',
+							isActive ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+						]}
+						aria-current={isActive ? 'page' : undefined}
+					>
+						<span class="relative z-10">{item.label}</span>
+						{isActive && <span class="absolute inset-x-2 bottom-1 h-px bg-stone-900"></span>}
+					</a>
+				);
+			})}
 		</nav>
-
-		<div class="flex items-center gap-5">
-			<button class="hover:opacity-75 transition-opacity flex items-center justify-center" disabled aria-label="Sacola de compras indisponível" title="Compras em breve">
-				<iconify-icon icon="solar:bag-linear" class="text-2xl text-stone-900"></iconify-icon>
-			</button>
-			<div class="w-px h-5 bg-stone-300"></div>
-		</div>
 	</div>
 
-	<nav aria-label="Navegação móvel" class="mt-4 flex justify-center gap-6 text-xs font-mono text-stone-600 md:hidden">
-		<a href="#craft-section">DESIGN</a>
-		<a href="#tech-section">TECHNOLOGY</a>
-		<a href="#specs">SPECS</a>
+	<nav aria-label="Navegação móvel" class="mt-4 flex justify-center gap-3 text-[10px] font-mono uppercase md:hidden">
+		{navItems.map((item) => {
+			const isActive = item.match.includes(currentPath);
+			return (
+				<a
+					href={item.href}
+					class:list={[
+						'px-2 py-1.5 transition-colors',
+						isActive ? 'text-stone-900 font-semibold' : 'text-stone-600'
+					]}
+					aria-current={isActive ? 'page' : undefined}
+				>
+					{item.label}
+				</a>
+			);
+		})}
 	</nav>
 </header>

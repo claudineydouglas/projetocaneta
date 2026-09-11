@@ -1,0 +1,264 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+
+const products = [
+  {
+    name: 'Aero Draft',
+    info: 'Peso ultraleve com ponta de 0,5 mm para traço seco e preciso.',
+    badge: 'Fluxo leve',
+    image: '/assets/images/caneta1.jfif'
+  },
+  {
+    name: 'Carbon Arc',
+    info: 'Chassi em alumínio e tinta de alta aderência para uso em sketchbook.',
+    badge: 'Alumínio',
+    image: '/assets/images/caneta2.jfif'
+  },
+  {
+    name: 'Studio Pro',
+    info: 'Ideal para projetos de branding com acabamento premium e linha firme.',
+    badge: 'Studio',
+    image: '/assets/images/caneta3.jfif'
+  },
+  {
+    name: 'Prism Steel',
+    info: 'Ponta reforçada para gravação e desenho técnico com máximo controle.',
+    badge: 'Precisão',
+    image: '/assets/images/caneta4.jfif'
+  },
+  {
+    name: 'Luma Ink',
+    info: 'Tinta brilhante com secagem rápida e contraste eficiente em superfícies claras.',
+    badge: 'Secagem',
+    image: '/assets/images/caneta5.png'
+  },
+  {
+    name: 'Nocturne 01',
+    info: 'Design minimalista com foco em ergonomia e resistência para uso diário.',
+    badge: 'Ergonomia',
+    image: '/assets/images/caneta6.jfif'
+  },
+  {
+    name: 'Flux Precision',
+    info: 'Linha equilibrada para esboços rápidos, rascunhos e detalhes finos.',
+    badge: 'Detalhe',
+    image: '/assets/images/caneta7.webp'
+  },
+  {
+    name: 'Meridian X',
+    info: 'Acabamento sofisticado para profissionais que priorizam conforto e faixa linear.',
+    badge: 'Comfort',
+    image: '/assets/images/caneta8.webp'
+  },
+  {
+    name: 'Atelier Line',
+    info: 'Mistura de acabamento artesanal e desempenho moderno para uso intensivo.',
+    badge: 'Artisan',
+    image: '/assets/images/caneta9.webp'
+  }
+];
+---
+
+<Layout>
+  <main class="catalog-page" aria-label="Catálogo de canetas ARTOOLS">
+    <section class="catalog-header">
+      <p class="eyebrow">CATÁLOGO</p>
+      <h1>Canetas premium para cada estilo de traço</h1>
+      <p class="subtitle">
+        Coleção selecionada para design, arquitetura, acabamento técnico e uso criativo.
+      </p>
+    </section>
+
+    <section class="products-grid">
+      {products.map((product) => (
+        <article class="product-card" style={`--accent:${product.accent}; --glow:${product.glow};`}>
+          <div class="product-visual">
+            <img
+              class="product-image"
+              src={product.image}
+              alt={`Caneta ${product.name}`}
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+
+          <div class="card-top">
+            <span class="badge">{product.badge}</span>
+          </div>
+
+          <div class="card-body">
+            <h2>{product.name}</h2>
+            <p>{product.info}</p>
+          </div>
+
+          <div class="card-actions">
+            <Button href="/detalhes" label="Avisar-me" title={`Avisar sobre ${product.name}`} />
+          </div>
+        </article>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .catalog-page {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 30%),
+      #f5f5f4;
+    padding: 6rem 1.25rem 5rem;
+    color: #1c1917;
+  }
+
+  .catalog-header {
+    max-width: 1200px;
+    margin: 0 auto 2.5rem;
+    text-align: left;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #57534e;
+    font-weight: 600;
+  }
+
+  .catalog-header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 2.8vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    font-weight: 600;
+    text-align: left;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+
+  .subtitle {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+    font-size: 1.05rem;
+    color: #57534e;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .products-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(28, 25, 23, 0.06);
+    border-radius: 1.25rem;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -20px rgba(28, 25, 23, 0.28);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem 0;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.38rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(28, 25, 23, 0.05);
+    border: 1px solid rgba(28, 25, 23, 0.08);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3f3f46;
+    font-weight: 700;
+  }
+
+  .product-visual {
+    width: 100%;
+    min-height: 250px;
+    background: #f3f3f1;
+    border-bottom: 1px solid rgba(28, 25, 23, 0.04);
+  }
+
+  .product-image {
+    display: block;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    background: #f3f3f1;
+  }
+
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0;
+  }
+
+  .card-body h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1.55rem;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+  }
+
+  .card-body p {
+    margin: 0;
+    line-height: 1.6;
+    color: #4b5563;
+    font-size: 0.98rem;
+  }
+
+  .card-actions {
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  :global(.catalog-page .btn-comprar),
+  :global(.catalog-page .btn-comprar-inner) {
+    width: 100%;
+  }
+
+  @media (max-width: 980px) {
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .catalog-page {
+      padding-top: 5rem;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card-top {
+      align-items: flex-start;
+    }
+  }
+</style>
