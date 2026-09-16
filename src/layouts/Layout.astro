@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
@@ -17,6 +18,7 @@ import Footer from '../components/Footer.astro';
 		<meta name="generator" content={Astro.generator} />
 		<title>ARTOOLS.PRO | A Caneta Mais Tecnológica do Mundo.</title>
 		<meta name="description" content="A caneta mais tecnológica do mundo. A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores que exigem perfeição em cada traço." />
+		<ClientRouter />
 	</head>
 	<body class="selection:bg-stone-900 selection:text-white">
 		<Header />

@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import caneta1 from '../assets/caneta1.webp';
 ---
 
 <Layout>
@@ -8,7 +10,7 @@ import Button from '../components/Button.astro';
     <section class="detail-shell">
       <div class="product-visual">
         <div class="image-stage">
-          <img src="/assets/images/caneta1.jfif" alt="Caneta Aero Draft" />
+          <Image src={caneta1} alt="Caneta Aero Draft" />
         </div>
       </div>
 

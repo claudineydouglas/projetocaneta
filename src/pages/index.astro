@@ -1,13 +1,17 @@
-    ---
-    import Button from '../components/Button.astro';
-    import Layout from '../layouts/Layout.astro';
-    import TechCard from '../components/TechCard.astro';
-    ---
+---
+import { Image } from 'astro:assets';
+import Button from '../components/Button.astro';
+import Layout from '../layouts/Layout.astro';
+import TechCard from '../components/TechCard.astro';
+import TextType from '../components/TextType.astro';
+import artToolsArtisanPen from '../assets/artools_artisan_pen.webp';
+import artToolsTechFeature from '../assets/artools_tech_feature.webp';
+---
 
-    <Layout>
-    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
-    <!-- Top Reading Progress Indicator -->
-    <div id="scroll-progress-bar" aria-hidden="true"></div>
+<Layout>
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+<!-- Top Reading Progress Indicator -->
+<div id="scroll-progress-bar" aria-hidden="true"></div>
 
 
 
@@ -27,7 +31,7 @@
                      1. FULLSCREEN BACKGROUND VIDEO (WALL-TO-WALL, CENTERED)
                      ============================================================== -->
                 <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                    <video id="hero-video" poster="/assets/images/artools_artisan_pen.jpg" src="/assets/videos/video2.mp4" muted playsinline preload="auto"
+                    <video id="hero-video" poster="/assets/images/artools_artisan_pen.webp" src="/assets/videos/video2.mp4" muted playsinline preload="auto"
                         class="w-full h-full object-cover object-center will-change-transform"
                         aria-label="Vídeo de fundo da caneta ARTOOLS controlado pelo scroll">
                     </video>
@@ -178,11 +182,15 @@
                         <div class="craft-image-box relative w-full h-full flex-1 rounded-[4px] overflow-hidden border border-stone-300/90 bg-stone-900 shadow-[0_25px_60px_-15px_rgba(28,25,23,0.18)]">
                             
                             <!-- Imagem Principal da Caneta ARTOOLS Pigmentum (Cobre 100% da altura com object-cover) -->
-                            <img loading="lazy" decoding="async" id="craft-photo" 
-                                 src="/assets/images/artools_artisan_pen.jpg" 
-                                 alt="Caneta ARTOOLS Pigmentum sob foco de luz em mesa de projetos técnicos" 
-                                 class="w-full h-full object-cover object-center transition-transform duration-700 ease-out select-none will-change-transform"
-                                 loading="lazy">
+                            <Image
+                                id="craft-photo"
+                                src={artToolsArtisanPen}
+                                alt="Caneta ARTOOLS Pigmentum sob foco de luz em mesa de projetos técnicos"
+                                class="w-full h-full object-cover object-center transition-transform duration-700 ease-out select-none will-change-transform"
+                                loading="eager"
+                                fetchpriority="high"
+                                decoding="async"
+                            />
 
                             <!-- Vinheta Suave e Gradiente para Acabamento -->
                             <div class="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent pointer-events-none"></div>
@@ -217,10 +225,20 @@
                         </span>
                     </div>
 
-                    <!-- Headline Principal (Space Grotesk + text-outline-hero igual à dobra 1) -->
+                    <!-- Headline Principal com efeito de digitação -->
                     <h2 class="craft-anim font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.4rem] font-bold tracking-tighter leading-[0.94] mb-7 text-stone-900">
-                        <span class="block">Engenharia artesanal.</span>
-                        <span class="block text-outline-hero my-1.5">Precisão molecular.</span>
+                        <TextType
+                            as="span"
+                            text={["Engenharia artesanal.", "Precisão molecular.", "Traço sem compromisso."]}
+                            typingSpeed={70}
+                            deletingSpeed={35}
+                            pauseDuration={1500}
+                            loop={true}
+                            showCursor={true}
+                            cursorCharacter="|"
+                            className="block"
+                            textColors={['#1c1917', '#1c1917', '#1c1917']}
+                        />
                     </h2>
 
                     <!-- Parágrafo Narrativo dos Benefícios da Caneta Tecnológica -->
@@ -330,7 +348,7 @@
                         badge="CNC 5-EIXOS"
                         title="Empunhadura Texturizada em Padrão Diamante"
                         description="Usinada em torno de altíssima precisão a partir de um tarugo maciço de alumínio aeroespacial. O padrão recartilhado microdiamantado proporciona ancoragem tátil perfeita sem fadiga muscular, posicionando o centro de gravidade dinâmico no ponto de equilíbrio áureo (62/38)."
-                        image="/assets/images/artools_tech_feature.png"
+                        image={artToolsTechFeature}
                         imageAlt="Macro fotografia do grip recartilhado e gravação a laser da caneta ARTOOLS Pigmentum"
                         imageBadges={["LIGA AEROESPACIAL 6061-T6", "MASSA EQUILIBRADA: 19.4G"]}
                     />
@@ -397,10 +415,13 @@
 
                     <!-- Visual Showcase: Macro Fotografia do Chassi e Ponta -->
                     <div class="relative rounded-[4px] overflow-hidden border border-stone-200 bg-stone-950 p-2 group-hover:border-stone-400 transition-colors">
-                        <img loading="lazy" decoding="async" src="/assets/images/artools_tech_feature.png" 
-                             alt="Macro fotografia do grip recartilhado e gravação a laser da caneta ARTOOLS Pigmentum" 
+                        <Image
+                             src={artToolsTechFeature}
+                             alt="Macro fotografia do grip recartilhado e gravação a laser da caneta ARTOOLS Pigmentum"
                              class="w-full h-56 sm:h-64 object-cover object-center rounded-[3px] group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                             loading="lazy">
+                             loading="lazy"
+                             decoding="async"
+                        />
                         
                         <!-- Badges Técnicos Flutuantes -->
                         <div class="absolute bottom-4 left-4 bg-stone-900/90 text-white backdrop-blur-md px-3 py-1 rounded text-[10px] font-mono tracking-wider uppercase border border-stone-700">
@@ -633,7 +654,7 @@
             muted
             playsinline
             preload="metadata"
-            poster="/assets/images/artools_artisan_pen.jpg"
+            poster="/assets/images/artools_artisan_pen.webp"
             class="material-video"
             aria-label="Vídeo da caneta ARTOOLS Pigmentum em movimento"
         >
@@ -709,7 +730,7 @@
 
         <!-- Background Pen Video Container with Cinematic Gradient Overlays -->
         <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-            <video id="experience-video" autoplay loop muted playsinline class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster="/assets/images/artools_artisan_pen.jpg">
+            <video id="experience-video" autoplay loop muted playsinline class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster="/assets/images/artools_artisan_pen.webp">
                 <source src="/assets/videos/video.mp4" type="video/mp4">
             </video>
 

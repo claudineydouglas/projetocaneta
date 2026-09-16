@@ -8,50 +8,92 @@ const navItems = [
 ];
 ---
 
-<header id="navbar" class="fixed top-0 w-full z-50 px-8 sm:px-12 md:px-16 py-7 transition-all duration-300">
-	<div class="max-w-[1440px] mx-auto flex justify-between items-center gap-6">
-		<a href="/" class="flex items-center gap-3 group" aria-label="ARTOOLS Home">
-			<div class="w-8 h-8 bg-[#1C1917] text-white flex items-center justify-center rounded-[7px] shadow-sm group-hover:scale-105 transition-transform">
-				<iconify-icon icon="solar:pen-bold" class="text-base text-white"></iconify-icon>
-			</div>
-			<span class="font-display font-bold text-lg tracking-tight text-[#1C1917]">ARTOOLS</span>
-		</a>
+<header id="navbar" transition:persist class="fixed top-0 z-50 w-full px-4 py-4 sm:px-8 md:px-16 md:py-7 transition-all duration-300">
+	<div class="mx-auto max-w-[1440px]">
+		<div class="flex items-center justify-between gap-4 rounded-full border border-stone-200/80 bg-white/80 px-3 py-2 shadow-[0_10px_30px_rgba(24,24,27,0.06)] backdrop-blur-md md:bg-transparent md:shadow-none md:backdrop-blur-none md:border-none md:px-0 md:py-0">
+			<a href="/" class="flex items-center gap-3 group" aria-label="ARTOOLS Home">
+				<div class="flex h-8 w-8 items-center justify-center rounded-[7px] bg-[#1C1917] text-white shadow-sm transition-transform group-hover:scale-105">
+					<iconify-icon icon="solar:pen-bold" class="text-base text-white"></iconify-icon>
+				</div>
+				<span class="font-display text-lg font-bold tracking-tight text-[#1C1917]">ARTOOLS</span>
+			</a>
 
-		<nav class="hidden md:flex items-center gap-3 text-[10px] font-mono tracking-[0.2em] uppercase" aria-label="Navegação principal">
+			<nav transition:persist class="hidden items-center gap-3 text-[10px] font-mono uppercase tracking-[0.2em] md:flex" aria-label="Navegação principal">
+				{navItems.map((item) => {
+					const isActive = item.match.includes(currentPath);
+					return (
+						<a
+							href={item.href}
+							class:list={[
+								'relative px-3 py-2 transition-colors',
+								isActive ? 'font-semibold text-stone-900' : 'text-stone-500 hover:text-stone-900'
+							]}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							<span class="relative z-10">{item.label}</span>
+							{isActive && <span class="absolute inset-x-2 bottom-1 h-px bg-stone-900"></span>}
+						</a>
+					);
+				})}
+			</nav>
+
+			<button
+				type="button"
+				id="mobile-menu-toggle"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-900 transition-colors hover:border-stone-300 md:hidden"
+				aria-label="Abrir menu"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+			>
+				<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+					<path d="M3 7h18M3 12h18M3 17h18" />
+				</svg>
+			</button>
+		</div>
+
+		<nav
+			id="mobile-menu"
+			transition:persist
+			aria-label="Navegação móvel"
+			class="mt-3 hidden flex-col gap-2 rounded-2xl border border-stone-200 bg-white/95 p-3 shadow-[0_16px_40px_rgba(24,24,27,0.08)] md:hidden"
+		>
 			{navItems.map((item) => {
 				const isActive = item.match.includes(currentPath);
 				return (
 					<a
 						href={item.href}
 						class:list={[
-							'px-3 py-2 transition-colors relative',
-							isActive ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+							'rounded-xl px-3 py-2 text-[10px] font-mono uppercase tracking-[0.22em] transition-colors',
+							isActive ? 'bg-stone-900 text-white' : 'text-stone-700 hover:bg-stone-100 hover:text-stone-900'
 						]}
 						aria-current={isActive ? 'page' : undefined}
 					>
-						<span class="relative z-10">{item.label}</span>
-						{isActive && <span class="absolute inset-x-2 bottom-1 h-px bg-stone-900"></span>}
+						{item.label}
 					</a>
 				);
 			})}
 		</nav>
 	</div>
-
-	<nav aria-label="Navegação móvel" class="mt-4 flex justify-center gap-3 text-[10px] font-mono uppercase md:hidden">
-		{navItems.map((item) => {
-			const isActive = item.match.includes(currentPath);
-			return (
-				<a
-					href={item.href}
-					class:list={[
-						'px-2 py-1.5 transition-colors',
-						isActive ? 'text-stone-900 font-semibold' : 'text-stone-600'
-					]}
-					aria-current={isActive ? 'page' : undefined}
-				>
-					{item.label}
-				</a>
-			);
-		})}
-	</nav>
 </header>
+
+<script>
+	const toggleButton = document.getElementById('mobile-menu-toggle');
+	const mobileMenu = document.getElementById('mobile-menu');
+
+	if (toggleButton && mobileMenu) {
+		toggleButton.addEventListener('click', () => {
+			const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+			toggleButton.setAttribute('aria-expanded', String(!isExpanded));
+			toggleButton.setAttribute('aria-label', isExpanded ? 'Abrir menu' : 'Fechar menu');
+			mobileMenu.classList.toggle('hidden', isExpanded);
+		});
+
+		mobileMenu.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', () => {
+				toggleButton.setAttribute('aria-expanded', 'false');
+				toggleButton.setAttribute('aria-label', 'Abrir menu');
+				mobileMenu.classList.add('hidden');
+			});
+		});
+	}
+</script>

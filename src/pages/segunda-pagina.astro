@@ -1,61 +1,71 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import caneta1 from '../assets/caneta1.webp';
+import caneta2 from '../assets/caneta2.webp';
+import caneta3 from '../assets/caneta3.webp';
+import caneta4 from '../assets/caneta4.webp';
+import caneta5 from '../assets/caneta5.webp';
+import caneta6 from '../assets/caneta6.webp';
+import caneta7 from '../assets/caneta7.webp';
+import caneta8 from '../assets/caneta8.webp';
+import caneta9 from '../assets/caneta9.webp';
 
 const products = [
   {
     name: 'Aero Draft',
     info: 'Peso ultraleve com ponta de 0,5 mm para traço seco e preciso.',
     badge: 'Fluxo leve',
-    image: '/assets/images/caneta1.jfif'
+    image: caneta1
   },
   {
     name: 'Carbon Arc',
     info: 'Chassi em alumínio e tinta de alta aderência para uso em sketchbook.',
     badge: 'Alumínio',
-    image: '/assets/images/caneta2.jfif'
+    image: caneta2
   },
   {
     name: 'Studio Pro',
     info: 'Ideal para projetos de branding com acabamento premium e linha firme.',
     badge: 'Studio',
-    image: '/assets/images/caneta3.jfif'
+    image: caneta3
   },
   {
     name: 'Prism Steel',
     info: 'Ponta reforçada para gravação e desenho técnico com máximo controle.',
     badge: 'Precisão',
-    image: '/assets/images/caneta4.jfif'
+    image: caneta4
   },
   {
     name: 'Luma Ink',
     info: 'Tinta brilhante com secagem rápida e contraste eficiente em superfícies claras.',
     badge: 'Secagem',
-    image: '/assets/images/caneta5.png'
+    image: caneta5
   },
   {
     name: 'Nocturne 01',
     info: 'Design minimalista com foco em ergonomia e resistência para uso diário.',
     badge: 'Ergonomia',
-    image: '/assets/images/caneta6.jfif'
+    image: caneta6
   },
   {
     name: 'Flux Precision',
     info: 'Linha equilibrada para esboços rápidos, rascunhos e detalhes finos.',
     badge: 'Detalhe',
-    image: '/assets/images/caneta7.webp'
+    image: caneta7
   },
   {
     name: 'Meridian X',
     info: 'Acabamento sofisticado para profissionais que priorizam conforto e faixa linear.',
     badge: 'Comfort',
-    image: '/assets/images/caneta8.webp'
+    image: caneta8
   },
   {
     name: 'Atelier Line',
     info: 'Mistura de acabamento artesanal e desempenho moderno para uso intensivo.',
     badge: 'Artisan',
-    image: '/assets/images/caneta9.webp'
+    image: caneta9
   }
 ];
 ---
@@ -74,12 +84,11 @@ const products = [
       {products.map((product) => (
         <article class="product-card" style={`--accent:${product.accent}; --glow:${product.glow};`}>
           <div class="product-visual">
-            <img
+            <Image
               class="product-image"
               src={product.image}
               alt={`Caneta ${product.name}`}
               loading="lazy"
-              referrerpolicy="no-referrer"
             />
           </div>
 
