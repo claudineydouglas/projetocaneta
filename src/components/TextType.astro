@@ -1,0 +1,174 @@
+---
+interface Props {
+  text?: string | string[];
+  as?: string;
+  typingSpeed?: number;
+  initialDelay?: number;
+  pauseDuration?: number;
+  deletingSpeed?: number;
+  loop?: boolean;
+  className?: string;
+  showCursor?: boolean;
+  cursorCharacter?: string;
+  cursorClassName?: string;
+  textColors?: string[];
+  startOnVisible?: boolean;
+}
+
+const {
+  text = '',
+  as: Tag = 'span',
+  typingSpeed = 75,
+  initialDelay = 0,
+  pauseDuration = 1500,
+  deletingSpeed = 35,
+  loop = true,
+  className = '',
+  showCursor = true,
+  cursorCharacter = '|',
+  cursorClassName = '',
+  textColors = [],
+  startOnVisible = false,
+} = Astro.props as Props;
+
+const textArray = Array.isArray(text) ? text : [text];
+const textData = JSON.stringify(textArray);
+---
+
+<Tag
+  data-text-type
+  data-texts={textData}
+  data-typing-speed={typingSpeed}
+  data-initial-delay={initialDelay}
+  data-pause-duration={pauseDuration}
+  data-deleting-speed={deletingSpeed}
+  data-loop={String(loop)}
+  data-show-cursor={String(showCursor)}
+  data-start-on-visible={String(startOnVisible)}
+  data-cursor-character={cursorCharacter}
+  data-text-colors={JSON.stringify(textColors)}
+  class:list={['text-type', className]}
+>
+  <span class="text-type__content"></span>
+  {showCursor && <span class:list={['text-type__cursor', cursorClassName]}>{cursorCharacter}</span>}
+</Tag>
+
+<style>
+  .text-type {
+    display: inline-block;
+    white-space: pre-wrap;
+  }
+
+  .text-type__content {
+    display: inline-block;
+    min-width: 0;
+  }
+
+  .text-type__cursor {
+    display: inline-block;
+    margin-left: 0.18rem;
+    opacity: 1;
+    animation: text-type-blink 0.6s steps(1) infinite;
+  }
+
+  @keyframes text-type-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  const textTypeNodes = document.querySelectorAll('[data-text-type]');
+
+  textTypeNodes.forEach((node) => {
+    const contentEl = node.querySelector('.text-type__content');
+    const cursorEl = node.querySelector('.text-type__cursor');
+    if (!contentEl) return;
+
+    const textArray = JSON.parse(node.dataset.texts || '[]');
+    const typingSpeed = Number(node.dataset.typingSpeed || 75);
+    const initialDelay = Number(node.dataset.initialDelay || 0);
+    const pauseDuration = Number(node.dataset.pauseDuration || 1500);
+    const deletingSpeed = Number(node.dataset.deletingSpeed || 35);
+    const loop = node.dataset.loop !== 'false';
+    const showCursor = node.dataset.showCursor !== 'false';
+    const startOnVisible = node.dataset.startOnVisible === 'true';
+    const cursorCharacter = node.dataset.cursorCharacter || '|';
+
+    let displayedText = '';
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    let isVisible = !startOnVisible;
+
+    const render = () => {
+      contentEl.textContent = displayedText;
+      if (cursorEl) {
+        cursorEl.textContent = cursorCharacter;
+        cursorEl.style.display = showCursor ? 'inline-block' : 'none';
+      }
+    };
+
+    const tick = () => {
+      const currentText = textArray[currentTextIndex] || '';
+
+      if (!isVisible) return;
+
+      if (isDeleting) {
+        if (displayedText.length === 0) {
+          isDeleting = false;
+          currentTextIndex = (currentTextIndex + 1) % textArray.length;
+          currentCharIndex = 0;
+          setTimeout(tick, pauseDuration);
+          return;
+        }
+
+        displayedText = displayedText.slice(0, -1);
+        render();
+        setTimeout(tick, deletingSpeed);
+        return;
+      }
+
+      if (currentCharIndex < currentText.length) {
+        displayedText = currentText.slice(0, currentCharIndex + 1);
+        currentCharIndex += 1;
+        render();
+        setTimeout(tick, typingSpeed);
+        return;
+      }
+
+      if (textArray.length > 1) {
+        setTimeout(() => {
+          isDeleting = true;
+          tick();
+        }, pauseDuration);
+      } else if (loop) {
+        setTimeout(() => {
+          currentCharIndex = 0;
+          displayedText = '';
+          render();
+          setTimeout(tick, 200);
+        }, pauseDuration);
+      }
+    };
+
+    if (startOnVisible) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            isVisible = true;
+            observer.disconnect();
+            setTimeout(tick, initialDelay);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(node);
+    } else {
+      setTimeout(tick, initialDelay);
+    }
+
+    render();
+  });
+</script>

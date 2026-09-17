@@ -2,6 +2,18 @@
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalURL?: string;
+}
+
+const {
+	title = 'ArtTools | Ferramentas para criar com precisão',
+	description = 'Conheça a ArtTools, uma marca dedicada a ferramentas e produtos para criadores que exigem precisão, qualidade e design.',
+	canonicalURL = Astro.url.href,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -9,15 +21,15 @@ import Footer from '../components/Footer.astro';
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="canonical" href={canonicalURL} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="/assets/generated/main.css" />
 		<meta name="generator" content={Astro.generator} />
-		<title>ARTOOLS.PRO | A Caneta Mais Tecnológica do Mundo.</title>
-		<meta name="description" content="A caneta mais tecnológica do mundo. A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores que exigem perfeição em cada traço." />
+		<title>{title}</title>
+		<meta name="description" content={description} />
 		<ClientRouter />
 	</head>
 	<body class="selection:bg-stone-900 selection:text-white">
