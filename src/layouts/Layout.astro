@@ -7,13 +7,17 @@ interface Props {
 	title?: string;
 	description?: string;
 	canonicalURL?: string;
+	image?: string;
 }
 
 const {
 	title = 'ArtTools | Ferramentas para criar com precisão',
 	description = 'Conheça a ArtTools, uma marca dedicada a ferramentas e produtos para criadores que exigem precisão, qualidade e design.',
 	canonicalURL = Astro.url.href,
+	image = '/assets/images/caneta10.png',
 } = Astro.props;
+
+const absoluteImageURL = new URL(image, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -30,6 +34,15 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content={absoluteImageURL} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={absoluteImageURL} />
 		<ClientRouter />
 	</head>
 	<body class="selection:bg-stone-900 selection:text-white">
