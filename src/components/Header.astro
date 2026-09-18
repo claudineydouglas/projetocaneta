@@ -3,8 +3,8 @@ const currentPath = Astro.url.pathname;
 
 const navItems = [
   { label: 'Início', href: '/', match: ['/'] },
-  { label: 'Catálogo', href: '/segunda-pagina', match: ['/segunda-pagina'] },
-  { label: 'Detalhes', href: '/detalhes', match: ['/detalhes'] }
+	{ label: 'Catálogo', href: '/catalogo', match: ['/catalogo'] },
+	{ label: 'Detalhes', href: '/produtos/precision-ceramic-white', match: ['/produtos'] }
 ];
 ---
 
@@ -18,7 +18,7 @@ const navItems = [
 				<span class="font-display text-lg font-bold tracking-tight text-[#1C1917]">ARTOOLS</span>
 			</a>
 
-			<nav transition:persist class="hidden items-center gap-3 text-[10px] font-mono uppercase tracking-[0.2em] md:flex" aria-label="Navegação principal">
+			<nav class="hidden items-center gap-3 text-[10px] font-mono uppercase tracking-[0.2em] md:flex" aria-label="Navegação principal">
 				{navItems.map((item) => {
 					const isActive = item.match.includes(currentPath);
 					return (
@@ -53,7 +53,6 @@ const navItems = [
 
 		<nav
 			id="mobile-menu"
-			transition:persist
 			aria-label="Navegação móvel"
 			class="mt-3 hidden flex-col gap-2 rounded-2xl border border-stone-200 bg-white/95 p-3 shadow-[0_16px_40px_rgba(24,24,27,0.08)] md:hidden"
 		>
@@ -97,3 +96,11 @@ const navItems = [
 		});
 	}
 </script>
+
+<style>
+	#navbar {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: 50;
+	}
+</style>

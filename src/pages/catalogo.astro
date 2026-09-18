@@ -1,71 +1,70 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import caneta1 from '../assets/caneta1.webp';
-import caneta2 from '../assets/caneta2.webp';
-import caneta3 from '../assets/caneta3.webp';
-import caneta4 from '../assets/caneta4.webp';
-import caneta5 from '../assets/caneta5.webp';
-import caneta6 from '../assets/caneta6.webp';
-import caneta7 from '../assets/caneta7.webp';
-import caneta8 from '../assets/caneta8.webp';
-import caneta9 from '../assets/caneta9.webp';
 
 const products = [
   {
-    name: 'Aero Draft',
+    name: 'ArtTools Precision Ceramic White',
+    slug: 'precision-ceramic-white',
     info: 'Peso ultraleve com ponta de 0,5 mm para traço seco e preciso.',
     badge: 'Fluxo leve',
-    image: caneta1
+    image: '/assets/images/precision_ceramic_white.webp'
   },
   {
-    name: 'Carbon Arc',
+    name: 'ArtTools Carbon Fiber Speedliner',
+    slug: 'carbon-fiber-speedliner',
     info: 'Chassi em alumínio e tinta de alta aderência para uso em sketchbook.',
     badge: 'Alumínio',
-    image: caneta2
+    image: '/assets/images/carbon_fiber_speedliner.webp'
   },
   {
-    name: 'Studio Pro',
+    name: 'ArtTools Titanium Stealth Minimalist',
+    slug: 'titanium-stealth-minimalist',
     info: 'Ideal para projetos de branding com acabamento premium e linha firme.',
     badge: 'Studio',
-    image: caneta3
+    image: '/assets/images/titanium_stealth_minimalist.webp'
   },
   {
-    name: 'Prism Steel',
+    name: 'ArtTools Minimalist Matte Slate',
+    slug: 'minimalist-matte-slate',
     info: 'Ponta reforçada para gravação e desenho técnico com máximo controle.',
     badge: 'Precisão',
-    image: caneta4
+    image: '/assets/images/minimalist_matte_slate.webp'
   },
   {
-    name: 'Luma Ink',
+    name: 'ArtTools Lunar Silver Monolith',
+    slug: 'lunar-silver-monolith',
     info: 'Tinta brilhante com secagem rápida e contraste eficiente em superfícies claras.',
     badge: 'Secagem',
-    image: caneta5
+    image: '/assets/images/lunar_silver_monolith.webp'
   },
   {
-    name: 'Nocturne 01',
+    name: 'ArtTools Obsidian Matte Black',
+    slug: 'obsidian-matte-black',
     info: 'Design minimalista com foco em ergonomia e resistência para uso diário.',
     badge: 'Ergonomia',
-    image: caneta6
+    image: '/assets/images/obsidian_matte_black.webp'
   },
   {
-    name: 'Flux Precision',
+    name: 'ArtTools Brass Heritage Signature',
+    slug: 'brass-heritage-signature',
     info: 'Linha equilibrada para esboços rápidos, rascunhos e detalhes finos.',
     badge: 'Detalhe',
-    image: caneta7
+    image: '/assets/images/brass_heritage_signature.webp'
   },
   {
-    name: 'Meridian X',
+    name: 'ArtTools Bronze Artisan Special',
+    slug: 'bronze-artisan-special',
     info: 'Acabamento sofisticado para profissionais que priorizam conforto e faixa linear.',
     badge: 'Comfort',
-    image: caneta8
+    image: '/assets/images/bronze_artisan_special.webp'
   },
   {
-    name: 'Atelier Line',
+    name: 'ArtTools Midnight Gold Executive',
+    slug: 'midnight-gold-executive',
     info: 'Mistura de acabamento artesanal e desempenho moderno para uso intensivo.',
     badge: 'Artisan',
-    image: caneta9
+    image: '/assets/images/midnight_gold_executive.webp'
   }
 ];
 ---
@@ -73,7 +72,7 @@ const products = [
 <Layout
   title="Coleção ArtTools | Canetas para todos os estilos de criação"
   description="Explore a coleção completa de canetas ArtTools e encontre a combinação ideal de precisão, conforto e acabamento para cada projeto criativo."
-  image="/assets/images/caneta5.webp"
+  image="/assets/images/precision_ceramic_white.webp"
 >
   <main class="catalog-page" aria-label="Catálogo de canetas ARTOOLS">
     <section class="catalog-header">
@@ -84,29 +83,30 @@ const products = [
       </p>
     </section>
 
-    <section class="products-grid">
+    <section class="products-grid" aria-labelledby="collection-title">
+      <h2 id="collection-title" class="visually-hidden">Coleção de canetas ArtTools</h2>
       {products.map((product) => (
-        <article class="product-card" style={`--accent:${product.accent}; --glow:${product.glow};`}>
-          <div class="product-visual">
-            <Image
+        <article class="product-card">
+          <a class="product-visual product-link" href={`/produtos/${product.slug}`} aria-label={`Ver detalhes de ${product.name}`}>
+            <img
               class="product-image"
               src={product.image}
               alt={`Caneta ${product.name}`}
               loading="lazy"
             />
-          </div>
+          </a>
 
           <div class="card-top">
             <span class="badge">{product.badge}</span>
           </div>
 
           <div class="card-body">
-            <h2>{product.name}</h2>
+            <h3>{product.name}</h3>
             <p>{product.info}</p>
           </div>
 
           <div class="card-actions">
-            <Button href="/detalhes" label="Avisar-me" title={`Avisar sobre ${product.name}`} />
+            <Button href={`/produtos/${product.slug}`} label="Avisar-me" title={`Avisar sobre ${product.name}`} />
           </div>
         </article>
       ))}
@@ -166,6 +166,18 @@ const products = [
     gap: 1.5rem;
   }
 
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .product-card {
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(28, 25, 23, 0.06);
@@ -214,6 +226,12 @@ const products = [
     border-bottom: 1px solid rgba(28, 25, 23, 0.04);
   }
 
+  .product-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
   .product-image {
     display: block;
     width: 100%;
@@ -231,7 +249,7 @@ const products = [
     padding: 1rem 1rem 0;
   }
 
-  .card-body h2 {
+  .card-body h3 {
     margin: 0 0 0.65rem;
     font-size: 1.55rem;
     letter-spacing: -0.05em;

@@ -1,28 +1,99 @@
 ---
-import { Image } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
-import caneta1 from '../assets/caneta1.webp';
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+
+const products = {
+  'precision-ceramic-white': {
+    name: 'ArtTools Precision Ceramic White',
+    image: '/assets/images/precision_ceramic_white.webp',
+    material: 'Cerâmica',
+    info: 'Acabamento cerâmico branco para traços precisos e uso criativo.'
+  },
+  'carbon-fiber-speedliner': {
+    name: 'ArtTools Carbon Fiber Speedliner',
+    image: '/assets/images/carbon_fiber_speedliner.webp',
+    material: 'Fibra de carbono',
+    info: 'Estrutura leve em fibra de carbono para escrita rápida e confortável.'
+  },
+  'titanium-stealth-minimalist': {
+    name: 'ArtTools Titanium Stealth Minimalist',
+    image: '/assets/images/titanium_stealth_minimalist.webp',
+    material: 'Titânio',
+    info: 'Corpo minimalista em titânio com equilíbrio para uso profissional.'
+  },
+  'minimalist-matte-slate': {
+    name: 'ArtTools Minimalist Matte Slate',
+    image: '/assets/images/minimalist_matte_slate.webp',
+    material: 'Alumínio fosco',
+    info: 'Acabamento slate fosco e grip texturizado para desenho técnico.'
+  },
+  'lunar-silver-monolith': {
+    name: 'ArtTools Lunar Silver Monolith',
+    image: '/assets/images/lunar_silver_monolith.webp',
+    material: 'Aço prateado',
+    info: 'Design monolítico prateado para linhas firmes e acabamento refinado.'
+  },
+  'obsidian-matte-black': {
+    name: 'ArtTools Obsidian Matte Black',
+    image: '/assets/images/obsidian_matte_black.webp',
+    material: 'Metal preto fosco',
+    info: 'Visual discreto e ergonômico para uso diário e escrita precisa.'
+  },
+  'brass-heritage-signature': {
+    name: 'ArtTools Brass Heritage Signature',
+    image: '/assets/images/brass_heritage_signature.webp',
+    material: 'Latão escovado',
+    info: 'Construção em latão com presença clássica e acabamento artesanal.'
+  },
+  'bronze-artisan-special': {
+    name: 'ArtTools Bronze Artisan Special',
+    image: '/assets/images/bronze_artisan_special.webp',
+    material: 'Bronze',
+    info: 'Edição artesanal em bronze para colecionadores e criadores exigentes.'
+  },
+  'midnight-gold-executive': {
+    name: 'ArtTools Midnight Gold Executive',
+    image: '/assets/images/midnight_gold_executive.webp',
+    material: 'Metal dourado',
+    info: 'Acabamento dourado executivo com desenho elegante para projetos premium.'
+  }
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'precision-ceramic-white' } },
+    { params: { slug: 'carbon-fiber-speedliner' } },
+    { params: { slug: 'titanium-stealth-minimalist' } },
+    { params: { slug: 'minimalist-matte-slate' } },
+    { params: { slug: 'lunar-silver-monolith' } },
+    { params: { slug: 'obsidian-matte-black' } },
+    { params: { slug: 'brass-heritage-signature' } },
+    { params: { slug: 'bronze-artisan-special' } },
+    { params: { slug: 'midnight-gold-executive' } }
+  ];
+}
+
+const product = products[Astro.params.slug as keyof typeof products] ?? products['precision-ceramic-white'];
 ---
 
 <Layout
-  title="Aero Draft | Avise-me quando estiver disponível"
-  description="Descubra a Aero Draft, a caneta ArtTools com peso ultraleve e traço preciso. Cadastre-se no formulário e avise-me quando o produto voltar ao estoque."
-  image="/assets/images/artools_tech_feature.webp"
+  title={`${product.name} | ArtTools`}
+  description={product.info}
+  image={product.image}
 >
   <main class="product-detail-page">
     <section class="detail-shell">
       <div class="product-visual">
         <div class="image-stage">
-          <Image src={caneta1} alt="Caneta Aero Draft" />
+          <img src={product.image} alt={`Caneta ${product.name}`} />
         </div>
       </div>
 
       <div class="product-info">
         <p class="eyebrow">Detalhes do produto</p>
-        <h1>Aero Draft</h1>
+        <h1>{product.name}</h1>
         <p class="lead">
-          A caneta premium ideal para quem busca precisão, conforto e acabamento refinado em cada traço.
+          {product.info}
         </p>
 
         <div class="spec-list">
@@ -32,15 +103,15 @@ import caneta1 from '../assets/caneta1.webp';
           </div>
           <div>
             <span>Material</span>
-            <strong>Alumínio</strong>
+            <strong>{product.material}</strong>
           </div>
           <div>
             <span>Fluxo</span>
-            <strong>Ultra leve</strong>
+            <strong>Traço premium</strong>
           </div>
           <div>
             <span>Uso</span>
-            <strong>Design & sketch</strong>
+            <strong>Uso criativo e técnico</strong>
           </div>
         </div>
 
@@ -66,7 +137,7 @@ import caneta1 from '../assets/caneta1.webp';
 
         <form
           class="notify-form"
-          onsubmit="event.preventDefault(); const form = event.currentTarget; const nome = form.nome.value.trim(); const telefone = form.telefone.value.trim(); const email = form.email.value.trim(); if (!nome || !telefone || !email) return; alert(`Obrigado, ${nome}! Receberemos seu contato em ${email} e entraremos em contato no telefone ${telefone} quando a Aero Draft estiver disponível.`); form.reset();"
+          onsubmit={`event.preventDefault(); const form = event.currentTarget; const nome = form.nome.value.trim(); const telefone = form.telefone.value.trim(); const email = form.email.value.trim(); if (!nome || !telefone || !email) return; alert('Obrigado, ' + nome + '! Receberemos seu contato em ' + email + ' e entraremos em contato no telefone ' + telefone + ' quando a ${product.name} estiver disponível.'); form.reset();`}
         >
           <label>
             <span>Seu nome</span>
@@ -106,7 +177,7 @@ import caneta1 from '../assets/caneta1.webp';
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 2rem;
-    align-items: center;
+    align-items: stretch;
   }
 
   .product-visual {
