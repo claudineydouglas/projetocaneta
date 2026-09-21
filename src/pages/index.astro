@@ -1,11 +1,18 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import Button from '../components/Button.astro';
 import Layout from '../layouts/Layout.astro';
 import TechCard from '../components/TechCard.astro';
 import TextType from '../components/TextType.astro';
 import artToolsArtisanPen from '../assets/artools_artisan_pen.webp';
 import artToolsTechFeature from '../assets/artools_tech_feature.webp';
+
+const artisanPenPoster = await getImage({
+    src: artToolsArtisanPen,
+    width: 496,
+    height: 370,
+    format: 'webp',
+});
 ---
 
 <Layout
@@ -35,7 +42,7 @@ import artToolsTechFeature from '../assets/artools_tech_feature.webp';
                      1. FULLSCREEN BACKGROUND VIDEO (WALL-TO-WALL, CENTERED)
                      ============================================================== -->
                 <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                    <video id="hero-video" poster="/assets/images/artools_artisan_pen.webp" src="/assets/videos/video2.mp4" muted playsinline preload="auto"
+                    <video id="hero-video" poster={artisanPenPoster.src} src="/assets/videos/video2.mp4" muted playsinline preload="metadata"
                         class="w-full h-full object-cover object-center will-change-transform"
                         aria-label="Vídeo de fundo da caneta ARTOOLS controlado pelo scroll">
                     </video>
@@ -657,8 +664,8 @@ import artToolsTechFeature from '../assets/artools_tech_feature.webp';
             loop
             muted
             playsinline
-            preload="metadata"
-            poster="/assets/images/artools_artisan_pen.webp"
+            preload="none"
+            poster={artisanPenPoster.src}
             class="material-video"
             aria-label="Vídeo da caneta ARTOOLS Pigmentum em movimento"
         >
@@ -734,7 +741,7 @@ import artToolsTechFeature from '../assets/artools_tech_feature.webp';
 
         <!-- Background Pen Video Container with Cinematic Gradient Overlays -->
         <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-            <video id="experience-video" autoplay loop muted playsinline class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster="/assets/images/artools_artisan_pen.webp">
+            <video id="experience-video" autoplay loop muted playsinline preload="none" class="w-full h-full object-cover scale-105 transition-transform duration-1000 ease-out" poster={artisanPenPoster.src}>
                 <source src="/assets/videos/video.mp4" type="video/mp4">
             </video>
 
