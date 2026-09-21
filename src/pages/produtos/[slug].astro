@@ -123,7 +123,13 @@ const product = products[Astro.params.slug as keyof typeof products] ?? products
         </div>
 
         <div class="actions">
-          <button class="notify-trigger" type="button" onclick="document.getElementById('avise-me').scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('notify-name').focus();">
+          <button
+            class="notify-trigger"
+            type="button"
+            data-product-name={product.name}
+            data-product-slug={Astro.params.slug}
+            onclick="window['gtag']?.('event', 'notify_me_click', { product_name: this.dataset.productName, product_slug: this.dataset.productSlug }); document.getElementById('avise-me').scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('notify-name').focus();"
+          >
             Avisar-me
           </button>
         </div>
