@@ -141,10 +141,7 @@ const product = products[Astro.params.slug as keyof typeof products] ?? products
         <p class="notify-kicker">Receba um aviso</p>
         <h2>Quero saber quando esse produto chegar.</h2>
 
-        <form
-          class="notify-form"
-          onsubmit={`event.preventDefault(); const form = event.currentTarget; const nome = form.nome.value.trim(); const telefone = form.telefone.value.trim(); const email = form.email.value.trim(); if (!nome || !telefone || !email) return; alert('Obrigado, ' + nome + '! Receberemos seu contato em ' + email + ' e entraremos em contato no telefone ' + telefone + ' quando a ${product.name} estiver disponível.'); form.reset();`}
-        >
+        <form id="notify-form" class="notify-form">
           <label>
             <span>Seu nome</span>
             <input id="notify-name" name="nome" type="text" placeholder="Seu nome completo" required />
@@ -160,12 +157,51 @@ const product = products[Astro.params.slug as keyof typeof products] ?? products
             <input id="notify-email" name="email" type="email" placeholder="seu@email.com" required />
           </label>
 
-          <button type="submit">Avise-me</button>
+          <input type="hidden" name="produto" value={product.name} />
+          <button id="submit-btn" type="submit">Avise-me</button>
+          <p id="status-msg" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
   </main>
 </Layout>
+
+<script is:inline>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyyfxPYY84_WT0BjB33o8kF96iU-q1QoKSrew6eSkBG95zCVMe0WX6XTe6mFrhg889/exec';
+  const form = document.getElementById('notify-form');
+  const statusMsg = document.getElementById('status-msg');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!(form instanceof HTMLFormElement) || !(submitBtn instanceof HTMLButtonElement) || !statusMsg) return;
+
+    submitBtn.disabled = true;
+    statusMsg.textContent = 'Enviando dados...';
+    statusMsg.className = 'form-status form-status--sending';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+      });
+
+      statusMsg.textContent = 'Cadastro realizado com sucesso!';
+      statusMsg.className = 'form-status form-status--success';
+      form.reset();
+    } catch {
+      statusMsg.textContent = 'Não foi possível enviar. Tente novamente.';
+      statusMsg.className = 'form-status form-status--error';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
 
 <style>
   .product-detail-page {
@@ -449,6 +485,32 @@ const product = products[Astro.params.slug as keyof typeof products] ?? products
   .notify-form button:hover {
     transform: translateY(-1px);
     opacity: 0.98;
+  }
+
+  .notify-form button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    margin: 0.25rem 0 0;
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .form-status--sending {
+    color: #d6d3d1;
+  }
+
+  .form-status--success {
+    color: #86efac;
+  }
+
+  .form-status--error {
+    color: #fca5a5;
   }
 
   @media (max-width: 980px) {
